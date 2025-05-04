@@ -1,0 +1,17 @@
+h1 {
+  font-size: 4.8rem;
+  margin-bottom: 1rem;
+}
+
+form {
+  margin-bottom: 2rem;
+}
+
+ul {
+  list-style: none;
+  padding-left: 0;
+
+  li {
+    margin: 0.5rem 0;
+  }
+}

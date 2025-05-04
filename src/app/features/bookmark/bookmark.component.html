@@ -1,0 +1,15 @@
+<h1>Bookmark Manager</h1>
+
+<app-bookmark-form (bookmarkAdded)="handleBookmarkAdded($event)"></app-bookmark-form>
+
+<hr />
+
+<h2>Bookmarks</h2>
+
+<ul>
+  <li *ngFor="let b of bookmarks">
+    <strong>{{ b.title }}</strong> —
+    <a [href]="b.url" target="_blank" rel="noopener noreferrer">{{ b.url }}</a>
+    <button (click)="deleteBookmark(b.id)">Delete</button>
+  </li>
+</ul>
