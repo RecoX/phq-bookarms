@@ -1,0 +1,22 @@
+<form [formGroup]="form" (ngSubmit)="onSubmit()" novalidate>
+  <div>
+    <label for="title">Title</label>
+    <input id="title" type="text" formControlName="title" />
+    <small *ngIf="form.get('title')?.invalid && form.get('title')?.touched">
+      Title is required.
+    </small>
+  </div>
+
+  <div>
+    <label for="url">URL</label>
+    <input id="url" type="url" formControlName="url" />
+    <small *ngIf="form.get('url')?.errors?.['required'] && form.get('url')?.touched">
+      URL is required.
+    </small>
+    <small *ngIf="form.get('url')?.errors?.['invalidUrl'] && form.get('url')?.touched">
+      URL is not valid.
+    </small>
+  </div>
+
+  <button type="submit" [disabled]="form.invalid">Add Bookmark</button>
+</form>
