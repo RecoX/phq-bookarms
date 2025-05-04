@@ -3,11 +3,12 @@ import { CommonModule } from '@angular/common';
 import { Bookmark } from './bookmark.model';
 import { BookmarkFormComponent } from './components/bookmark-form/bookmark-form.component';
 import { BookmarkStorageService } from './bookmark-storage.service';
+import { BookmarkPaginationComponent } from './components/bookmark-pagination/bookmark-pagination.component';
 
 @Component({
   selector: 'app-bookmark',
   standalone: true,
-  imports: [CommonModule, BookmarkFormComponent],
+  imports: [CommonModule, BookmarkFormComponent, BookmarkPaginationComponent],
   templateUrl: './bookmark.component.html',
   styleUrls: ['./bookmark.component.css'],
 })

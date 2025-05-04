@@ -15,16 +15,10 @@
 </ul>
 
 <!-- Pagination Controls -->
-<nav *ngIf="totalPages > 1">
-  <button (click)="setPage(currentPage - 1)" [disabled]="currentPage === 1">&lt;</button>
+<app-bookmark-pagination
+  [totalItems]="bookmarks.length"
+  [currentPage]="currentPage"
+  [itemsPerPage]="bookmarksPerPage"
+  (pageChange)="setPage($event)">
+</app-bookmark-pagination>
 
-  <ng-container *ngFor="let page of [].constructor(totalPages); let i = index">
-    <button
-      [disabled]="i + 1 === currentPage"
-      (click)="setPage(i + 1)">
-      {{ i + 1 }}
-    </button>
-  </ng-container>
-
-  <button (click)="setPage(currentPage + 1)" [disabled]="currentPage === totalPages">&gt;</button>
-</nav>
