@@ -8,15 +8,32 @@
   </div>
 
   <div>
-    <label for="url">URL</label>
-    <input id="url" type="url" formControlName="url" />
+    <label for="url">Url</label>
+    <input
+      id="url"
+      type="url"
+      formControlName="url"
+      (blur)="validateUrlField()"
+    />
+
     <small *ngIf="form.get('url')?.errors?.['required'] && form.get('url')?.touched">
       URL is required.
     </small>
+
     <small *ngIf="form.get('url')?.errors?.['invalidUrl'] && form.get('url')?.touched">
       URL is not valid.
     </small>
+
+    <small *ngIf="urlExists === false && !isCheckingUrl">
+      ⚠️ This URL may not exist or is unreachable.
+    </small>
+    <small *ngIf="isCheckingUrl">
+      🔄 Checking URL...
+    </small>
+
   </div>
 
-  <button type="submit" [disabled]="form.invalid">Add Bookmark</button>
+  <button type="submit" [disabled]="form.invalid || urlExists === false || isCheckingUrl">
+    Add Bookmark
+  </button>
 </form>
