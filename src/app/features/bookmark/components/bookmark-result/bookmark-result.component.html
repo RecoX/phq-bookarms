@@ -1,0 +1,10 @@
+<div *ngIf="bookmark; else noData">
+  <h2>✅ Thank you for your submission!</h2>
+  <p><strong>Title:</strong> {{ bookmark.title }}</p>
+  <p><strong>URL:</strong> <a [href]="bookmark.url" target="_blank" rel="noopener">{{ bookmark.url }}</a></p>
+  <button (click)="goBack()">← Back to Bookmark Manager</button>
+</div>
+
+<ng-template #noData>
+  <p>No bookmark submitted. <a routerLink="/">Return home</a>.</p>
+</ng-template>
