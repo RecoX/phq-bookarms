@@ -22,4 +22,13 @@ export class BookmarkComponent {
     this.storage.add(newBookmark);
     this.bookmarks = this.storage.getAll();
   }
+
+  deleteBookmark(id: string): void {
+    const confirmDelete = confirm('Are you sure you want to delete this bookmark?');
+    if (confirmDelete) {
+      this.storage.delete(id);
+      this.bookmarks = this.storage.getAll();
+    }
+  }
+
 }
