@@ -1,0 +1,7 @@
+<ul>
+  <li *ngFor="let b of bookmarks">
+    <strong>{{ b.title }}</strong> —
+    <a [href]="b.url" target="_blank" rel="noopener noreferrer">{{ b.url }}</a>
+    <button (click)="emitDelete(b.id)">Delete</button>
+  </li>
+</ul>

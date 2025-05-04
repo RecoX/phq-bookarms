@@ -4,11 +4,12 @@ import { Bookmark } from './bookmark.model';
 import { BookmarkFormComponent } from './components/bookmark-form/bookmark-form.component';
 import { BookmarkStorageService } from './bookmark-storage.service';
 import { BookmarkPaginationComponent } from './components/bookmark-pagination/bookmark-pagination.component';
+import { BookmarkListComponent } from './components/bookmark-list/bookmark-list.component';
 
 @Component({
   selector: 'app-bookmark',
   standalone: true,
-  imports: [CommonModule, BookmarkFormComponent, BookmarkPaginationComponent],
+  imports: [CommonModule, BookmarkFormComponent, BookmarkPaginationComponent, BookmarkListComponent],
   templateUrl: './bookmark.component.html',
   styleUrls: ['./bookmark.component.css'],
 })
