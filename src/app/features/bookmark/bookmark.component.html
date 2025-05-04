@@ -1,18 +1,18 @@
 <h1>Bookmark Manager</h1>
 
+<!-- Add Bookmark Form -->
+<!-- The event is handled in the parent component to update the list of bookmarks. -->
 <app-bookmark-form (bookmarkAdded)="handleBookmarkAdded($event)"></app-bookmark-form>
 
 <hr />
 
 <h2>Bookmarks</h2>
 
-<ul>
-  <li *ngFor="let b of paginatedBookmarks">
-    <strong>{{ b.title }}</strong> —
-    <a [href]="b.url" target="_blank" for rel="noopener noreferrer">{{ b.url }}</a>
-    <button (click)="deleteBookmark(b.id)">Delete</button>
-  </li>
-</ul>
+<!-- Display the list of bookmarks -->
+<app-bookmark-list
+  [bookmarks]="paginatedBookmarks"
+  (delete)="deleteBookmark($event)">
+</app-bookmark-list>
 
 <!-- Pagination Controls -->
 <app-bookmark-pagination
