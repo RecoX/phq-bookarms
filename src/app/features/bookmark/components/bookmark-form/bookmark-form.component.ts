@@ -9,6 +9,7 @@ import {
 } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { Bookmark } from '../../bookmark.model';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-bookmark-form',
@@ -24,7 +25,12 @@ export class BookmarkFormComponent {
   urlExists: boolean | null = null;
   isCheckingUrl = false;
 
-  constructor(private fb: FormBuilder) {
+  // Constructor initializes the form group with title and URL fields.
+  // The FormBuilder service is used to create the form group and its controls.
+  // The form is reactive, allowing for dynamic validation and state management.
+  // The URL field has a custom validator to check its format.
+  // The router is injected to navigate to the result page after submission.
+  constructor(private fb: FormBuilder, private router: Router)  {
     this.form = this.fb.group({
       title: ['', Validators.required],
       url: ['', [Validators.required, this.validateUrlFormat]],
@@ -114,5 +120,10 @@ export class BookmarkFormComponent {
     this.bookmarkAdded.emit(newBookmark);
     this.form.reset();
     this.urlExists = null;
+
+    this.router.navigate(['/result'], {
+      state: { bookmark: newBookmark },
+    });
   }
+
 }
