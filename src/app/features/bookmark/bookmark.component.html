@@ -7,9 +7,18 @@
 <h2>Bookmarks</h2>
 
 <ul>
-  <li *ngFor="let b of bookmarks">
+  <li *ngFor="let b of paginatedBookmarks">
     <strong>{{ b.title }}</strong> —
-    <a [href]="b.url" target="_blank" rel="noopener noreferrer">{{ b.url }}</a>
+    <a [href]="b.url" target="_blank" for rel="noopener noreferrer">{{ b.url }}</a>
     <button (click)="deleteBookmark(b.id)">Delete</button>
   </li>
 </ul>
+
+<!-- Pagination Controls -->
+<app-bookmark-pagination
+  [totalItems]="bookmarks.length"
+  [currentPage]="currentPage"
+  [itemsPerPage]="bookmarksPerPage"
+  (pageChange)="setPage($event)">
+</app-bookmark-pagination>
+

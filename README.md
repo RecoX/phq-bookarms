@@ -12,6 +12,33 @@ ng serve
 
 Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
 
+
+## PHQ DEV UTILITES
+
+### Add 50 test bookmarks
+To quickly test pagination and UI behaviour, run this in DevTools 
+```
+const bookmarks = [];
+
+for (let i = 1; i <= 50; i++) {
+  bookmarks.push({
+    id: crypto.randomUUID(),
+    title: `Test Bookmark ${i}`,
+    url: `https://www.google.com/search?q=example${i}`,
+    createdAt: new Date().toISOString(),
+  });
+}
+
+localStorage.setItem('bookmarks', JSON.stringify(bookmarks));
+console.log('✅ 50 valid bookmarks added to localStorage.');
+```
+
+Clear all bookmarks (DevTools)
+```
+localStorage.removeItem('bookmarks');
+console.log('🧹 Bookmarks cleared from localStorage.');
+```
+
 ## Code scaffolding
 
 Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
