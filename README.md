@@ -38,11 +38,6 @@ Clear all bookmarks (DevTools)
 localStorage.removeItem('bookmarks');
 console.log('🧹 Bookmarks cleared from localStorage.');
 ```
-Or to clear everything in localStorage:
-```
-localStorage.clear();
-console.log('🧹 All localStorage data cleared.');
-```
 
 ## Code scaffolding
 
