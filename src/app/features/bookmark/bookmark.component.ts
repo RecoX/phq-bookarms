@@ -13,14 +13,32 @@ import { BookmarkStorageService } from './bookmark-storage.service';
 })
 export class BookmarkComponent {
   bookmarks: Bookmark[] = [];
+  currentPage = 1;
+  bookmarksPerPage = 20;
 
   constructor(private storage: BookmarkStorageService) {
     this.bookmarks = this.storage.getAll();
   }
 
+  get paginatedBookmarks(): Bookmark[] {
+    const start = (this.currentPage - 1) * this.bookmarksPerPage;
+    const end = start + this.bookmarksPerPage;
+    return this.bookmarks.slice(start, end);
+  }
+
+  get totalPages(): number {
+    return Math.ceil(this.bookmarks.length / this.bookmarksPerPage);
+  }
+
+  setPage(page: number): void {
+    if (page < 1 || page > this.totalPages) return;
+    this.currentPage = page;
+  }
+
   handleBookmarkAdded(newBookmark: Bookmark) {
     this.storage.add(newBookmark);
     this.bookmarks = this.storage.getAll();
+    this.currentPage = this.totalPages; // jump to last page
   }
 
   deleteBookmark(id: string): void {

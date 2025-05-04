@@ -7,9 +7,24 @@
 <h2>Bookmarks</h2>
 
 <ul>
-  <li *ngFor="let b of bookmarks">
+  <li *ngFor="let b of paginatedBookmarks">
     <strong>{{ b.title }}</strong> —
-    <a [href]="b.url" target="_blank" rel="noopener noreferrer">{{ b.url }}</a>
+    <a [href]="b.url" target="_blank" for rel="noopener noreferrer">{{ b.url }}</a>
     <button (click)="deleteBookmark(b.id)">Delete</button>
   </li>
 </ul>
+
+<!-- Pagination Controls -->
+<nav *ngIf="totalPages > 1">
+  <button (click)="setPage(currentPage - 1)" [disabled]="currentPage === 1">&lt;</button>
+
+  <ng-container *ngFor="let page of [].constructor(totalPages); let i = index">
+    <button
+      [disabled]="i + 1 === currentPage"
+      (click)="setPage(i + 1)">
+      {{ i + 1 }}
+    </button>
+  </ng-container>
+
+  <button (click)="setPage(currentPage + 1)" [disabled]="currentPage === totalPages">&gt;</button>
+</nav>
