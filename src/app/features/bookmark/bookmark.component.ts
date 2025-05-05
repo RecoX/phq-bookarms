@@ -79,7 +79,7 @@ export class BookmarkComponent {
   // It also sets the current page to the last page, ensuring that the user sees the newly added bookmark immediately.
   handleBookmarkAdded(newBookmark: Bookmark) {
     this.storage.add(newBookmark);
-    this.bookmarks = this.storage.getAll();
+    this.refreshBookmarks();
   }
 
   // The deleteBookmark method is called when a bookmark is deleted.
@@ -89,8 +89,21 @@ export class BookmarkComponent {
     const confirmDelete = confirm('Are you sure you want to delete this bookmark?');
     if (confirmDelete) {
       this.storage.delete(id);
-      this.bookmarks = this.storage.getAll();
+      this.refreshBookmarks();
     }
   }
 
+  // The refreshBookmarks method is called to refresh the bookmarks array.
+  // It fetches the latest bookmarks from the storage service and updates the bookmarks array.
+  editBookmark(updated: Bookmark): void {
+    this.storage.update(updated);
+    this.refreshBookmarks();
+  }
+
+  /**
+  * Refreshes the bookmarks from storage and updates the local bookmarks array.
+  */
+  private refreshBookmarks(): void {
+    this.bookmarks = this.storage.getAll();
+  }
 }

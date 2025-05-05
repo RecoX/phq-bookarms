@@ -58,8 +58,40 @@ span {
   color: #666;
 }
 
+/* Cancel button */
+button.cancel-btn {
+  align-self: flex-start;
+  padding: 0.4rem 0.75rem;
+  background-color: #999191;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.9rem;
+}
+
+button.cancel-btn:hover {
+  background-color: #414b46;
+}
+
+/* Save button */
+button.save-btn {
+  align-self: flex-start;
+  padding: 0.4rem 0.75rem;
+  background-color: #44e535;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.9rem;
+}
+
+button.save-btn:hover {
+  background-color: #2c6109;
+}
+
 /* Delete button */
-button {
+button.delete-btn {
   align-self: flex-start;
   padding: 0.4rem 0.75rem;
   background-color: #e53935;
@@ -70,8 +102,24 @@ button {
   font-size: 0.9rem;
 }
 
-button:hover {
+button.delete-btn:hover {
   background-color: #c62828;
+}
+
+/* Edit button */
+button.edit-btn {
+  align-self: flex-start;
+  padding: 0.4rem 0.75rem;
+  background-color: #9aaa06;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.9rem;
+}
+
+button.edit-btn:hover {
+  background-color: #fdd835;
 }
 
 /* Responsive layout for wider screens */
