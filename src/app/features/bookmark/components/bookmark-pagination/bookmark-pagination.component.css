@@ -46,6 +46,13 @@ button:focus {
   outline-offset: 2px;
 }
 
+.pagination-info {
+  text-align: center;
+  font-size: 0.9rem;
+  margin-bottom: 0.5rem;
+  color: #555;
+}
+
 /* Responsive tweak for smaller screens */
 @media (max-width: 400px) {
   button {

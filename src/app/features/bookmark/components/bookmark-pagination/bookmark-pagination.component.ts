@@ -56,4 +56,20 @@ export class BookmarkPaginationComponent {
       this.pageChange.emit(page);
     }
   }
+
+  /**
+   * Get the first item number on the current page.
+   */
+  get startItem(): number {
+    return (this.currentPage - 1) * this.itemsPerPage + 1;
+  }
+
+  /**
+   * Get the last item number on the current page.
+   * This is the minimum of the end item and total items.
+   */
+  get endItem(): number {
+    return Math.min(this.currentPage * this.itemsPerPage, this.totalItems);
+  }
+
 }

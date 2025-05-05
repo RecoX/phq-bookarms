@@ -2,6 +2,15 @@
   Template for the BookmarkPaginationComponent.
   Displays pagination controls with buttons for navigating between pages.
 -->
+
+<!-- Pagination controls for navigating through the list of bookmarks -->
+<!-- The component receives the total number of items, current page, and items per page as inputs. -->
+<div class="pagination-info">
+  <p>
+    Showing {{ startItem }}–{{ endItem }} of {{ totalItems }} total results<br />
+  </p>
+</div>
+
 <nav *ngIf="totalPages > 1">
   <!-- Button to navigate to the previous page -->
   <button
