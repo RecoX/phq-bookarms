@@ -1,5 +1,10 @@
 # See https://docs.github.com/get-started/getting-started-with-git/ignoring-files for more about ignoring files.
 
+# Firebase cache and generated files
+.firebaserc.local
+.firebase/
+firebase-debug.log
+
 # Compiled output
 /dist
 /tmp
