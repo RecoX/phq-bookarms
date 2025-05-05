@@ -1,0 +1,93 @@
+/* Wrapper styles to center and constrain width */
+:host {
+  display: block;
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 1rem;
+}
+
+/* Style the list to remove default padding and bullets */
+ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+/* Style for each list item */
+li {
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background-color: #fff;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+/* Adjust spacing between elements inside each bookmark */
+li > * {
+  margin-bottom: 0.5rem;
+}
+
+/* Last child (button) doesn't need bottom margin */
+li > *:last-child {
+  margin-bottom: 0;
+}
+
+/* Style the title */
+strong {
+  font-size: 1.1rem;
+  color: #333;
+}
+
+/* Style the link */
+a {
+  color: #0066cc;
+  text-decoration: none;
+  word-break: break-all;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+/* Date text style */
+span {
+  font-size: 0.9rem;
+  color: #666;
+}
+
+/* Delete button */
+button {
+  align-self: flex-start;
+  padding: 0.4rem 0.75rem;
+  background-color: #e53935;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.9rem;
+}
+
+button:hover {
+  background-color: #c62828;
+}
+
+/* Responsive layout for wider screens */
+@media (min-width: 600px) {
+  li {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  li > * {
+    margin-bottom: 0;
+    margin-right: 1rem;
+  }
+
+  li > *:last-child {
+    margin-right: 0;
+  }
+}

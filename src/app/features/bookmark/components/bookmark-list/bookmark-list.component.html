@@ -10,6 +10,9 @@
     <!-- Link to the bookmark URL -->
     <a [href]="b.url" target="_blank" rel="noopener noreferrer">{{ b.url }}</a>
 
+    <!-- Date Created -->
+    <span>Created: {{ b.createdAt | date }}</span>
+
     <!-- Button to delete the bookmark -->
     <button (click)="emitDelete(b.id)">Delete</button>
   </li>
