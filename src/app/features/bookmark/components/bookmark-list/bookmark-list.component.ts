@@ -1,16 +1,17 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Bookmark } from '../../bookmark.model';
-import { FormsModule } from '@angular/forms';
+import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { validateUrlFormat, checkUrlAvailability } from '../../../../shared/validators/url.validators';
 
 /**
  * Component for displaying a list of bookmarks.
- * Allows users to view and delete bookmarks.
+ * Allows users to view, delete, and edit bookmarks.
  */
 @Component({
   selector: 'app-bookmark-list',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, ReactiveFormsModule],
   templateUrl: './bookmark-list.component.html',
   styleUrls: ['./bookmark-list.component.css'],
 })
@@ -26,12 +27,31 @@ export class BookmarkListComponent {
    */
   @Output() delete = new EventEmitter<string>();
 
-  // Add an EventEmitter for the edit event
+  /**
+   * Event emitted when a bookmark is edited.
+   * Emits the updated Bookmark object.
+   */
   @Output() edit = new EventEmitter<Bookmark>();
 
+  /**
+   * ID of the bookmark currently being edited.
+   */
   editingId: string | null = null;
-  editTitle: string = '';
-  editUrl: string = '';
+
+  /**
+   * Reactive form used for editing a bookmark.
+   */
+  editForm: FormGroup;
+  constructor(private fb: FormBuilder) {
+    this.editForm = this.fb.group({
+      title: ['', Validators.required],
+      url: [
+        '',
+        [Validators.required, validateUrlFormat],
+        [checkUrlAvailability()]
+      ],
+    });
+  }
 
   /**
    * Emits the delete event with the given bookmark ID.
@@ -42,22 +62,23 @@ export class BookmarkListComponent {
   }
 
   /**
-   * Emits the edit event with the given bookmark details.
+   * Activates edit mode for a bookmark and populates the edit form.
    * @param bookmark The bookmark to edit.
    */
   startEdit(bookmark: Bookmark): void {
     this.editingId = bookmark.id;
-    this.editTitle = bookmark.title;
-    this.editUrl = bookmark.url;
+    this.editForm.setValue({
+      title: bookmark.title,
+      url: bookmark.url,
+    });
   }
 
   /**
-   * Cancels the edit mode and clears the editing fields.
+   * Cancels the edit mode and clears the form.
    */
   cancelEdit(): void {
     this.editingId = null;
-    this.editTitle = '';
-    this.editUrl = '';
+    this.editForm.reset();
   }
 
   /**
@@ -65,7 +86,7 @@ export class BookmarkListComponent {
    * @param id The ID of the bookmark to edit.
    */
   saveEdit(id: string): void {
-    if (!this.editTitle.trim() || !this.editUrl.trim()) return;
+    if (this.editForm.invalid || this.editForm.pending) return;
 
     // Find the original bookmark to keep the original createdAt timestamp
     const original = this.bookmarks.find(b => b.id === id);
@@ -73,12 +94,11 @@ export class BookmarkListComponent {
 
     this.edit.emit({
       id,
-      title: this.editTitle.trim(),
-      url: this.editUrl.trim(),
+      title: this.editForm.value.title.trim(),
+      url: this.editForm.value.url.trim(),
       createdAt: original.createdAt,
     });
 
     this.cancelEdit();
   }
-
 }

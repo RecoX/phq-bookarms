@@ -1,7 +1,3 @@
-<!--
-  Template for the BookmarkListComponent.
-  Displays a list of bookmarks with delete buttons.
--->
 <ul>
   <li *ngFor="let b of bookmarks">
     <!--
@@ -11,16 +7,42 @@
       The cancel button will call the cancelEdit method to revert to display mode.
      -->
     <ng-container *ngIf="editingId === b.id; else displayMode">
-      <!-- Edit mode form -->
-      <input [(ngModel)]="editTitle" placeholder="Title" />
-      <input [(ngModel)]="editUrl" placeholder="URL" />
+      <form [formGroup]="editForm" (ngSubmit)="saveEdit(b.id)">
+        <div>
+          <label for="title-{{ b.id }}">Title:</label>
+          <input id="title-{{ b.id }}" type="text" formControlName="title" />
+          <small *ngIf="editForm.get('title')?.invalid && editForm.get('title')?.touched">
+            Title is required.
+          </small>
+        </div>
 
-      <button (click)="saveEdit(b.id)" class="save-btn">Save</button>
-      <button (click)="cancelEdit()" class="cancel-btn">Cancel</button>
+        <div>
+          <label for="url-{{ b.id }}">URL:</label>
+          <input id="url-{{ b.id }}" type="url" formControlName="url" />
+          <small *ngIf="editForm.get('url')?.errors?.['required'] && editForm.get('url')?.touched">
+            URL is required.
+          </small>
+          <small *ngIf="editForm.get('url')?.errors?.['invalidUrl'] && editForm.get('url')?.touched">
+            URL is not valid.
+          </small>
+          <small *ngIf="editForm.get('url')?.errors?.['unreachableUrl'] && editForm.get('url')?.touched">
+            URL may not be reachable.
+          </small>
+        </div>
+
+        <button
+          type="submit"
+          class="save-btn"
+          [disabled]="editForm.invalid || editForm.pending">
+          Save
+        </button>
+
+        <button type="button" class="cancel-btn" (click)="cancelEdit()">Cancel</button>
+      </form>
     </ng-container>
 
+    <!-- Display Mode -->
     <ng-template #displayMode>
-      <!-- Display mode -->
       <strong>{{ b.title }}</strong>
       <a [href]="b.url" target="_blank" rel="noopener noreferrer">{{ b.url }}</a>
       <span>Created: {{ b.createdAt | date }}</span>
