@@ -45,7 +45,13 @@ describe('BookmarkResultComponent', () => {
         /**
          * Provide mocked Router and Location for dependency injection.
          */
-        { provide: Router, useValue: { getCurrentNavigation: () => mockNavigation } },
+        {
+          provide: Router,
+          useValue: {
+            getCurrentNavigation: () => mockNavigation,
+            navigate: jasmine.createSpy('navigate'),
+          },
+        },
         { provide: Location, useValue: { back: jasmine.createSpy('back') } },
       ],
     }).compileComponents();
@@ -75,11 +81,13 @@ describe('BookmarkResultComponent', () => {
 
   /**
    * Verifies that the Location service is called when goBack is triggered.
+   * This simulates the user clicking the back button.
    */
-  it('should call location.back() when goBack() is invoked', () => {
+  it('should call router.navigate when goBack() is invoked', () => {
+    const router = TestBed.inject(Router);
     component.goBack();
-
-    const location = TestBed.inject(Location);
-    expect(location.back).toHaveBeenCalled();
+    expect(router.navigate).toHaveBeenCalledWith(['/'], {
+      queryParams: { page: 1 },
+    });
   });
 });
