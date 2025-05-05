@@ -80,7 +80,6 @@ export class BookmarkComponent {
   handleBookmarkAdded(newBookmark: Bookmark) {
     this.storage.add(newBookmark);
     this.bookmarks = this.storage.getAll();
-    this.currentPage = this.totalPages; // jump to last page
   }
 
   // The deleteBookmark method is called when a bookmark is deleted.
