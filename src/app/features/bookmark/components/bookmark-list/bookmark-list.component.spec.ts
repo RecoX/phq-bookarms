@@ -3,6 +3,10 @@ import { BookmarkListComponent } from './bookmark-list.component';
 import { By } from '@angular/platform-browser';
 import { Bookmark } from '../../bookmark.model';
 
+/**
+ * Unit tests for the BookmarkListComponent.
+ * Ensures the component behaves as expected under various scenarios.
+ */
 describe('BookmarkListComponent', () => {
   let component: BookmarkListComponent;
   let fixture: ComponentFixture<BookmarkListComponent>;
@@ -36,6 +40,7 @@ describe('BookmarkListComponent', () => {
   });
 
   it('should render a list of bookmarks', () => {
+    // Test case for verifying the rendering of bookmarks.
     component.bookmarks = testBookmarks;
     fixture.detectChanges();
 
@@ -46,6 +51,7 @@ describe('BookmarkListComponent', () => {
   });
 
   it('should emit delete event when delete button is clicked', () => {
+    // Test case for verifying the delete event emission.
     spyOn(component.delete, 'emit');
 
     component.bookmarks = testBookmarks;

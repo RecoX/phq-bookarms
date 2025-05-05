@@ -1,7 +1,16 @@
+<!--
+  Template for the BookmarkListComponent.
+  Displays a list of bookmarks with delete buttons.
+-->
 <ul>
   <li *ngFor="let b of bookmarks">
-    <strong>{{ b.title }}</strong> —
+    <!-- Display the bookmark title and URL -->
+    <strong>{{ b.title }}</strong>
+
+    <!-- Link to the bookmark URL -->
     <a [href]="b.url" target="_blank" rel="noopener noreferrer">{{ b.url }}</a>
+
+    <!-- Button to delete the bookmark -->
     <button (click)="emitDelete(b.id)">Delete</button>
   </li>
 </ul>
