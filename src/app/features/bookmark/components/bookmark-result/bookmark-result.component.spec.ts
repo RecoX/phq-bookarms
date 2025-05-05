@@ -1,3 +1,12 @@
+/**
+ * Unit tests for BookmarkResultComponent.
+ *
+ * This test suite verifies that:
+ * - The component is created successfully.
+ * - The submitted bookmark is displayed correctly.
+ * - The goBack method triggers navigation back.
+ */
+
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { BookmarkResultComponent } from './bookmark-result.component';
 import { Router } from '@angular/router';
@@ -8,7 +17,9 @@ describe('BookmarkResultComponent', () => {
   let component: BookmarkResultComponent;
   let fixture: ComponentFixture<BookmarkResultComponent>;
 
-  // Mock bookmark used to simulate router navigation state
+  /**
+   * Mock bookmark used to simulate navigation state input.
+   */
   const mockBookmark: Bookmark = {
     id: '1',
     title: 'Test Bookmark',
@@ -16,7 +27,9 @@ describe('BookmarkResultComponent', () => {
     createdAt: new Date().toISOString(),
   };
 
-  // Mock router navigation state to inject the bookmark as route state
+  /**
+   * Simulated router navigation state for injecting the bookmark.
+   */
   const mockNavigation = {
     extras: {
       state: {
@@ -29,7 +42,9 @@ describe('BookmarkResultComponent', () => {
     await TestBed.configureTestingModule({
       imports: [BookmarkResultComponent],
       providers: [
-        // Inject mocked router and location services
+        /**
+         * Provide mocked Router and Location for dependency injection.
+         */
         { provide: Router, useValue: { getCurrentNavigation: () => mockNavigation } },
         { provide: Location, useValue: { back: jasmine.createSpy('back') } },
       ],
@@ -40,24 +55,30 @@ describe('BookmarkResultComponent', () => {
     fixture.detectChanges();
   });
 
+  /**
+   * Verifies that the component is created successfully.
+   */
   it('should create the component', () => {
     expect(component).toBeTruthy();
   });
 
+  /**
+   * Verifies that the bookmark details and thank you message are rendered.
+   */
   it('should display the thank you message and bookmark details', () => {
     const compiled = fixture.nativeElement as HTMLElement;
 
-    // Ensure the message and submitted bookmark details appear in the DOM
     expect(compiled.textContent).toContain('Thank you for your submission');
     expect(compiled.textContent).toContain('Test Bookmark');
     expect(compiled.textContent).toContain('https://example.com');
   });
 
+  /**
+   * Verifies that the Location service is called when goBack is triggered.
+   */
   it('should call location.back() when goBack() is invoked', () => {
-    // Trigger the back navigation
     component.goBack();
 
-    // Verify the Location service's back method was called
     const location = TestBed.inject(Location);
     expect(location.back).toHaveBeenCalled();
   });

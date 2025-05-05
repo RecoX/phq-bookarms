@@ -1,10 +1,27 @@
+<!--
+  Displays the submitted bookmark and a thank you message if a bookmark exists.
+-->
 <div *ngIf="bookmark; else noData">
   <h2>✅ Thank you for your submission!</h2>
-  <p><strong>Title:</strong> {{ bookmark.title }}</p>
-  <p><strong>URL:</strong> <a [href]="bookmark.url" target="_blank" rel="noopener">{{ bookmark.url }}</a></p>
+  <p>
+    <strong>Title:</strong> {{ bookmark.title }}
+  </p>
+  <p>
+    <strong>URL:</strong>
+    <a [href]="bookmark.url" target="_blank" rel="noopener">
+      {{ bookmark.url }}
+    </a>
+  </p>
+
+  <!--
+    Button to return to the overview page (handled by goBack() in the component).
+  -->
   <button (click)="goBack()">← Back to Bookmark Manager</button>
 </div>
 
+<!--
+  Fallback message shown when no bookmark was passed through navigation state.
+-->
 <ng-template #noData>
   <p>No bookmark submitted. <a routerLink="/">Return home</a>.</p>
 </ng-template>
