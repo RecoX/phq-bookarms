@@ -62,4 +62,25 @@ describe('BookmarkListComponent', () => {
 
     expect(component.delete.emit).toHaveBeenCalledOnceWith('1');
   });
+
+  it('should emit edit event with updated data and preserve createdAt', () => {
+    spyOn(component.edit, 'emit');
+
+    const original = testBookmarks[0];
+    component.bookmarks = testBookmarks;
+    component.startEdit(original);
+    fixture.detectChanges();
+
+    component.editTitle = 'Updated Title';
+    component.editUrl = 'https://updated-url.com';
+    component.saveEdit(original.id);
+
+    expect(component.edit.emit).toHaveBeenCalledOnceWith({
+      id: original.id,
+      title: 'Updated Title',
+      url: 'https://updated-url.com',
+      createdAt: original.createdAt, // ✅ preserved
+    });
+  });
+
 });
