@@ -10,11 +10,9 @@ This project uses [Firebase Hosting](https://firebase.google.com/products/hostin
 
 ### 🌍 Access the Live App
 
-After deploying, Firebase will provide a public URL. Example:
+Firebase public URL:
 
-```
-https://bookmarks-phq-42b18.web.app
-```
+[https://bookmarks-phq-42b18.web.app](https://bookmarks-phq-42b18.web.app)
 
 ---
 
@@ -31,8 +29,6 @@ https://bookmarks-phq-42b18.web.app
   ```
   firebase login
   ```
-* A Firebase project already created
-  (e.g. [https://console.firebase.google.com/project/bookmarks-phq-42b18/overview](https://console.firebase.google.com/project/bookmarks-phq-42b18/overview))
 
 ---
 
