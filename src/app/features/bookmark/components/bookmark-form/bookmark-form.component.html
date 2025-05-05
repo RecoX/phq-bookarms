@@ -1,4 +1,5 @@
 <form [formGroup]="form" (ngSubmit)="onSubmit()" novalidate>
+  <!-- Title Field -->
   <div>
     <label for="title">Title</label>
     <input id="title" type="text" formControlName="title" />
@@ -7,33 +8,38 @@
     </small>
   </div>
 
+  <!-- URL Field -->
   <div>
-    <label for="url">Url</label>
+    <label for="url">URL</label>
     <input
       id="url"
       type="url"
       formControlName="url"
-      (blur)="validateUrlField()"
     />
 
+    <!-- Required error -->
     <small *ngIf="form.get('url')?.errors?.['required'] && form.get('url')?.touched">
       URL is required.
     </small>
 
+    <!-- Format error -->
     <small *ngIf="form.get('url')?.errors?.['invalidUrl'] && form.get('url')?.touched">
       URL is not valid.
     </small>
 
-    <small *ngIf="urlExists === false && !isCheckingUrl">
+    <!-- Reachability error (async) -->
+    <small *ngIf="form.get('url')?.errors?.['unreachableUrl'] && form.get('url')?.touched && !form.get('url')?.pending">
       ⚠️ This URL may not exist or is unreachable.
     </small>
-    <small *ngIf="isCheckingUrl">
+
+    <!-- Loading state -->
+    <small *ngIf="form.get('url')?.pending">
       🔄 Checking URL...
     </small>
-
   </div>
 
-  <button type="submit" [disabled]="form.invalid || urlExists === false || isCheckingUrl">
+  <!-- Submit Button -->
+  <button type="submit" [disabled]="form.invalid || form.pending">
     Add Bookmark
   </button>
 </form>

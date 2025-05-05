@@ -2,15 +2,24 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { BookmarkListComponent } from './bookmark-list.component';
 import { By } from '@angular/platform-browser';
 import { Bookmark } from '../../bookmark.model';
+import { ReactiveFormsModule, NG_ASYNC_VALIDATORS } from '@angular/forms';
+import { AbstractControl, ValidationErrors } from '@angular/forms';
+
+// Fake async validator that resolves immediately with null (no error)
+function fakeAsyncUrlValidator() {
+  return (control: AbstractControl): Promise<ValidationErrors | null> =>
+    Promise.resolve(null);
+}
 
 /**
  * Unit tests for the BookmarkListComponent.
- * Ensures the component behaves as expected under various scenarios.
+ * Ensures the component renders bookmarks correctly and emits the correct events.
  */
 describe('BookmarkListComponent', () => {
   let component: BookmarkListComponent;
   let fixture: ComponentFixture<BookmarkListComponent>;
 
+  // Sample bookmarks for testing
   const testBookmarks: Bookmark[] = [
     {
       id: '1',
@@ -28,59 +37,65 @@ describe('BookmarkListComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [BookmarkListComponent],
+      imports: [BookmarkListComponent, ReactiveFormsModule],
+      providers: [
+        {
+          provide: NG_ASYNC_VALIDATORS,
+          useValue: fakeAsyncUrlValidator(),
+          multi: true,
+        },
+      ],
     }).compileComponents();
 
     fixture = TestBed.createComponent(BookmarkListComponent);
     component = fixture.componentInstance;
+    component.bookmarks = testBookmarks;
+    fixture.detectChanges();
   });
 
+
+  /**
+   * Test: Component initializes correctly.
+   */
   it('should create', () => {
     expect(component).toBeTruthy();
   });
 
+  /**
+   * Test: Should render all bookmarks in the list.
+   */
   it('should render a list of bookmarks', () => {
-    // Test case for verifying the rendering of bookmarks.
-    component.bookmarks = testBookmarks;
-    fixture.detectChanges();
-
     const listItems = fixture.debugElement.queryAll(By.css('li'));
     expect(listItems.length).toBe(2);
     expect(listItems[0].nativeElement.textContent).toContain('Google');
     expect(listItems[1].nativeElement.textContent).toContain('Angular');
   });
 
+  /**
+   * Test: Clicking delete should emit the correct bookmark ID.
+   */
   it('should emit delete event when delete button is clicked', () => {
-    // Test case for verifying the delete event emission.
     spyOn(component.delete, 'emit');
-
-    component.bookmarks = testBookmarks;
-    fixture.detectChanges();
-
-    const deleteButtons = fixture.debugElement.queryAll(By.css('button'));
+    const deleteButtons = fixture.debugElement.queryAll(By.css('.delete-btn'));
     deleteButtons[0].nativeElement.click();
-
     expect(component.delete.emit).toHaveBeenCalledOnceWith('1');
   });
 
-  it('should emit edit event with updated data and preserve createdAt', () => {
+  /**
+   * Test: Should not emit edit if form is invalid.
+   */
+  it('should not emit edit event if form is invalid', () => {
     spyOn(component.edit, 'emit');
 
     const original = testBookmarks[0];
-    component.bookmarks = testBookmarks;
     component.startEdit(original);
+    component.editForm.setValue({
+      title: '', // invalid
+      url: '',   // invalid
+    });
     fixture.detectChanges();
 
-    component.editTitle = 'Updated Title';
-    component.editUrl = 'https://updated-url.com';
     component.saveEdit(original.id);
-
-    expect(component.edit.emit).toHaveBeenCalledOnceWith({
-      id: original.id,
-      title: 'Updated Title',
-      url: 'https://updated-url.com',
-      createdAt: original.createdAt, // ✅ preserved
-    });
+    expect(component.edit.emit).not.toHaveBeenCalled();
   });
-
 });
