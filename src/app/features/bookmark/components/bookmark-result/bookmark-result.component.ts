@@ -1,8 +1,13 @@
 import { Component } from '@angular/core';
-import { CommonModule, Location } from '@angular/common';
+import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { Bookmark } from '../../bookmark.model';
 
+/**
+ * Component for displaying a confirmation message after a bookmark is submitted.
+ * It retrieves the submitted bookmark from the navigation state and provides
+ * a way to return to the overview page.
+ */
 @Component({
   selector: 'app-bookmark-result',
   standalone: true,
@@ -13,16 +18,21 @@ import { Bookmark } from '../../bookmark.model';
 export class BookmarkResultComponent {
   bookmark: Bookmark | null = null;
 
-  // Constructor initializes the component with the router and location services.
-  // It retrieves the bookmark data passed through the router's navigation state.
-  // If no bookmark is found, it defaults to null.
-  constructor(private router: Router, private location: Location) {
+  /**
+   * Extracts the bookmark from navigation state on component construction.
+   *
+   * @param router Angular Router used to access navigation state
+   */
+  constructor(private router: Router) {
     const nav = this.router.getCurrentNavigation();
     this.bookmark = nav?.extras?.state?.['bookmark'] ?? null;
   }
 
-  // Method to navigate back to the previous page using Angular's Location service.
+  /**
+   * Navigates back to the main bookmark manager page.
+   * This avoids using Location.back() to prevent returning to a paginated URL.
+   */
   goBack(): void {
-    this.location.back();
+    this.router.navigate(['/'], { queryParams: { page: 1 } });
   }
 }
