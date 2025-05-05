@@ -1,0 +1,70 @@
+/* Root layout styling */
+:host {
+  display: block;
+  max-width: 800px;
+  margin: 2rem auto;
+  padding: 1.5rem;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+  text-align: center;
+}
+
+/* Heading styling */
+h2 {
+  color: #2e7d32;
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+/* Paragraph styling */
+p {
+  margin: 0.75rem 0;
+  font-size: 1rem;
+  color: #333;
+}
+
+/* Highlighted label */
+strong {
+  font-weight: 600;
+  color: #444;
+}
+
+/* Bookmark URL link */
+a {
+  color: #1976d2;
+  text-decoration: none;
+  word-break: break-all;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+/* Back button */
+button {
+  margin-top: 1.5rem;
+  padding: 0.6rem 1.2rem;
+  font-size: 1rem;
+  color: white;
+  background-color: #1976d2;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out;
+}
+
+button:hover {
+  background-color: #1565c0;
+}
+
+button:focus {
+  outline: 2px solid #64b5f6;
+  outline-offset: 2px;
+}
+
+/* Fallback no-data message */
+ng-template p {
+  font-style: italic;
+  color: #888;
+}
