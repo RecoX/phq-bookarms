@@ -7,6 +7,9 @@
     <strong>Title:</strong> {{ bookmark.title }}
   </p>
   <p>
+    <strong>Created:</strong> {{ bookmark.createdAt | date }}
+  </p>
+  <p>
     <strong>URL:</strong>
     <a [href]="bookmark.url" target="_blank" rel="noopener">
       {{ bookmark.url }}
