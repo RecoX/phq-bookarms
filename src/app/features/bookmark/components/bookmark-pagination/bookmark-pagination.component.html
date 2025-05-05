@@ -1,10 +1,16 @@
+<!--
+  Template for the BookmarkPaginationComponent.
+  Displays pagination controls with buttons for navigating between pages.
+-->
 <nav *ngIf="totalPages > 1">
+  <!-- Button to navigate to the previous page -->
   <button
     (click)="changePage(currentPage - 1)"
     [disabled]="currentPage === 1">
     &lt;
   </button>
 
+  <!-- Buttons for each page number -->
   <button
     *ngFor="let page of pages"
     (click)="changePage(page)"
@@ -12,6 +18,7 @@
     {{ page }}
   </button>
 
+  <!-- Button to navigate to the next page -->
   <button
     (click)="changePage(currentPage + 1)"
     [disabled]="currentPage === totalPages">

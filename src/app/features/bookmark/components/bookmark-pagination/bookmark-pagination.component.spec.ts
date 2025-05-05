@@ -2,6 +2,10 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { BookmarkPaginationComponent } from './bookmark-pagination.component';
 
+/**
+ * Unit tests for the BookmarkPaginationComponent.
+ * Ensures the component behaves as expected under various scenarios.
+ */
 describe('BookmarkPaginationComponent', () => {
   let component: BookmarkPaginationComponent;
   let fixture: ComponentFixture<BookmarkPaginationComponent>;
@@ -21,12 +25,14 @@ describe('BookmarkPaginationComponent', () => {
   });
 
   it('should calculate total pages correctly', () => {
+    // Test case for verifying totalPages calculation.
     component.totalItems = 45;
     component.itemsPerPage = 20;
     expect(component.totalPages).toBe(3);
   });
 
   it('should emit correct page when changePage is called', () => {
+    // Test case for verifying pageChange event emission.
     spyOn(component.pageChange, 'emit');
     component.totalItems = 100;
     component.itemsPerPage = 20;
@@ -36,6 +42,7 @@ describe('BookmarkPaginationComponent', () => {
   });
 
   it('should not emit pageChange if page is out of bounds', () => {
+    // Test case for ensuring no event is emitted for invalid pages.
     spyOn(component.pageChange, 'emit');
     component.totalItems = 40;
     component.itemsPerPage = 20;
@@ -47,6 +54,7 @@ describe('BookmarkPaginationComponent', () => {
   });
 
   it('should render pagination buttons based on totalPages', () => {
+    // Test case for verifying the correct number of buttons are rendered.
     component.totalItems = 50;
     component.itemsPerPage = 10;
     fixture.detectChanges();
