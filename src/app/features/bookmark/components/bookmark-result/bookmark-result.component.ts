@@ -33,7 +33,6 @@ export class BookmarkResultComponent {
    * This avoids using Location.back() to prevent returning to a paginated URL.
    */
   goBack(): void {
-    debugger;
     this.router.navigate(['/'], { queryParams: { page: 1 } });
   }
 }
