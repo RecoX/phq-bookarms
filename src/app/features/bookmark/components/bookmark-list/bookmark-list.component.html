@@ -4,16 +4,29 @@
 -->
 <ul>
   <li *ngFor="let b of bookmarks">
-    <!-- Display the bookmark title and URL -->
-    <strong>{{ b.title }}</strong>
+    <!--
+      Edit mode: when the user clicks the edit button, the input fields are shown.
+      The user can edit the title and URL of the bookmark.
+      The save button will call the saveEdit method with the bookmark ID.
+      The cancel button will call the cancelEdit method to revert to display mode.
+     -->
+    <ng-container *ngIf="editingId === b.id; else displayMode">
+      <!-- Edit mode form -->
+      <input [(ngModel)]="editTitle" placeholder="Title" />
+      <input [(ngModel)]="editUrl" placeholder="URL" />
 
-    <!-- Link to the bookmark URL -->
-    <a [href]="b.url" target="_blank" rel="noopener noreferrer">{{ b.url }}</a>
+      <button (click)="saveEdit(b.id)" class="save-btn">Save</button>
+      <button (click)="cancelEdit()" class="cancel-btn">Cancel</button>
+    </ng-container>
 
-    <!-- Date Created -->
-    <span>Created: {{ b.createdAt | date }}</span>
+    <ng-template #displayMode>
+      <!-- Display mode -->
+      <strong>{{ b.title }}</strong>
+      <a [href]="b.url" target="_blank" rel="noopener noreferrer">{{ b.url }}</a>
+      <span>Created: {{ b.createdAt | date }}</span>
 
-    <!-- Button to delete the bookmark -->
-    <button (click)="emitDelete(b.id)">Delete</button>
+      <button (click)="emitDelete(b.id)" class="delete-btn">Delete</button>
+      <button (click)="startEdit(b)" class="edit-btn">Edit</button>
+    </ng-template>
   </li>
 </ul>
