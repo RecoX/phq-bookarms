@@ -1,6 +1,8 @@
 # PhqBookmarks
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.2.9.
+## Technical Design Document (TDD)
+
+For detailed technical design and architecture, refer to the [Technical Design Document](./Tdd.md).
 
 ---
 
