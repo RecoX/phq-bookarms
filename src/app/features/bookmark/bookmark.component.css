@@ -1,17 +1,43 @@
-h1 {
-  font-size: 4.8rem;
-  margin-bottom: 1rem;
+:host {
+  display: block;
+  max-width: 960px;
+  margin: 2rem auto;
+  padding: 1rem;
+  background-color: #ffffff;
 }
 
-form {
+/* Section heading */
+h2 {
+  font-size: 1.5rem;
+  color: #333;
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+  border-bottom: 2px solid #eee;
+  padding-bottom: 0.5rem;
+}
+
+/* Horizontal line spacing */
+hr {
+  margin: 2rem 0;
+  border: none;
+  border-top: 1px solid #ddd;
+}
+
+/* Make sure each embedded component has some spacing */
+app-bookmark-form,
+app-bookmark-list,
+app-bookmark-pagination {
+  display: block;
   margin-bottom: 2rem;
 }
 
-ul {
-  list-style: none;
-  padding-left: 0;
+/* Responsive tweak: ensure form and pagination don’t crowd small screens */
+@media (max-width: 600px) {
+  :host {
+    padding: 1rem 0.5rem;
+  }
 
-  li {
-    margin: 0.5rem 0;
+  h2 {
+    font-size: 1.25rem;
   }
 }
