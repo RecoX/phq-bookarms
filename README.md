@@ -2,6 +2,88 @@
 
 This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.2.9.
 
+---
+
+## 🚀 Deployment Instructions (Firebase Hosting – Google Cloud)
+
+This project uses [Firebase Hosting](https://firebase.google.com/products/hosting) to deploy the compiled Angular 19 app.
+
+### 🌍 Access the Live App
+
+After deploying, Firebase will provide a public URL. Example:
+
+```
+https://bookmarks-phq-42b18.web.app
+```
+
+---
+
+### 🔧 Prerequisites
+
+* Node.js and npm installed
+* Firebase CLI installed globally
+
+  ```
+  npm install -g firebase-tools
+  ```
+* Logged in to Firebase
+
+  ```
+  firebase login
+  ```
+* A Firebase project already created
+  (e.g. [https://console.firebase.google.com/project/bookmarks-phq-42b18/overview](https://console.firebase.google.com/project/bookmarks-phq-42b18/overview))
+
+---
+
+### 📦 Build the Angular App
+
+From the root of your Angular project:
+
+```bash
+ng build --configuration production
+```
+
+The output will be in `dist/phq-bookmarks/browser/`.
+
+---
+
+### ⚙️ Firebase Configuration
+
+Update `firebase.json` with the correct hosting path:
+
+```json
+{
+  "hosting": {
+    "public": "dist/phq-bookmarks/browser",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ],
+    "rewrites": [
+      {
+        "source": "**",
+        "destination": "/index.html"
+      }
+    ]
+  }
+}
+```
+
+This ensures the SPA routing works and Firebase serves the compiled app correctly.
+
+---
+
+### ☁️ Deploy to Firebase Hosting
+
+```bash
+firebase deploy
+```
+
+---
+
+
 ## Development server
 
 To start a local development server, run:
@@ -11,7 +93,6 @@ ng serve
 ```
 
 Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
-
 
 ## PHQ DEV UTILITES
 
