@@ -72,6 +72,9 @@ export class BookmarkComponent {
       queryParamsHandling: 'merge', // preserve other query params if any
       replaceUrl: true, // avoids cluttering browser history
     });
+
+    // Scroll to the top of the page when changing pages
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 
   // The handleBookmarkAdded method is called when a new bookmark is added.

@@ -63,4 +63,16 @@ describe('BookmarkPaginationComponent', () => {
     // 5 pages + 2 for prev/next
     expect(buttons.length).toBe(7);
   });
+
+  it('should display the correct pagination info', () => {
+    component.totalItems = 500;
+    component.itemsPerPage = 20;
+    component.currentPage = 2;
+    fixture.detectChanges();
+
+    const infoText = fixture.debugElement.query(By.css('.pagination-info')).nativeElement.textContent;
+
+    expect(infoText).toContain('Showing 21–40 of 500');
+  });
+
 });
